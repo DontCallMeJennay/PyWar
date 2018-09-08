@@ -1,0 +1,26 @@
+{
+  "name": "pywar",
+  "version": "0.1.1",
+  "description": "Capstone project for Introduction to Computer Science and Programming Using Python (MITx 6.00.1x 2017)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dontcallmejennay/PyWar.git"
+  },
+  "keywords": [
+    "war",
+    "card",
+    "game",
+    "Python",
+    "Eel"
+  ],
+  "author": "Jenni Corbus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dontcallmejennay/PyWar/issues"
+  },
+  "homepage": "https://github.com/dontcallmejennay/PyWar#readme"
+}

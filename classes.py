@@ -35,7 +35,17 @@ class Player(object):
 
 class Deck(object):
     def __init__(self):
-        self.deck = "1 2 3 1 2 3 4 5 6 7 8 9 10 J Q K A".split(" ")
+        self.deck = [
+            (1, "wild"),
+            (2, "wild"),
+            (3, "wild"),
+            (2, "wild"),
+            (3, "wild"),
+            (4, "wild"),
+            (5, "wild"),
+            (6, "wild")
+            ]
+
         self.winCount = len(self.deck)
         self.discards = []
         self.players = []
@@ -88,6 +98,15 @@ class Deck(object):
                 players[1].hand.append(card)
             b = not b
         print("First deal: players have ", len(players[0].hand), " cards in hand.")
+
+    def makeStandardDeck():
+        values = "A K Q J 10 9 8 7 6 5 4 3 2".split(" ")
+        suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
+        deck = []
+        for val in values:
+            for suit in suits:
+                deck.append((val, suit))
+        return deck
 
     def shuffle(self):
         """

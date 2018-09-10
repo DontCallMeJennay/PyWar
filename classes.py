@@ -12,14 +12,11 @@ class Player(object):
         Selects stack of four cards to play when a War is declared. Returns a list.
         """
         self.pick_up_reserves()
-        #print("Total cards: {}".format(len(self.hand) + len(self.reserve)))
         if len(self.hand) > 3:
             cards = self.hand[0:4]
             self.hand = self.hand[4:]
         else:
             cards = self.hand
-        #print("{}'s battle hand: {}".format(self.name,cards))
-        #print("{}'s remaining hand: {}".format(self.name, self.hand))
         return cards
 
     def play_card(self):
@@ -70,10 +67,10 @@ class Deck(object):
             "8": 6,
             "9": 7,
             "10": 8,
-            "J": 9,
-            "Q": 10,
-            "K": 11,
-            "A": 12
+            "Jack": 9,
+            "Queen": 10,
+            "King": 11,
+            "Ace": 12
         }
         self.rounds = 0
         self.WIN_COUNT = len(self.deck)
@@ -86,17 +83,16 @@ class Deck(object):
         cards2 = players[1].draw_for_battle()
         self.discards.extend(cards1)
         self.discards.extend(cards2)
-        #print("Discard pile: {}".format(self.discards))
         if len(cards1) < 4:
-            print("{} loses because they don't have enough troops!\n".format(
+            print("\n{} loses because they don't have enough cards!\n".format(
                 players[0].name))
             print("{} wins the war after {} rounds! Thanks for playing!".format(
                 players[1].name, self.rounds))
             exit()
         if len(cards2) < 4:
-            print("{} loses because they don't have enough troops!\n".format(
+            print("\n{} loses because they don't have enough cards!\n".format(
                 players[1].name))
-            print("{} wins the war after {} rounds! Thanks for playing!".format(
+            print("{} wins the war after {} rounds! Thanks for playing!\n\n".format(
                 players[0].name, self.rounds))
             exit()
         print("\nBATTLE: {} of {} vs {} of {}".format(
@@ -104,18 +100,18 @@ class Deck(object):
 
         a = self.CARD_RANKS[cards1[3][0]]
         b = self.CARD_RANKS[cards2[3][0]]
-        print("\n a = {}; b = {}".format(a, b))
-        if cards1[3] == cards2[3]:
+
+        if a == b:
             return self.battle(players)
-        elif cards1[3] > cards2[3]:
+        elif a > b:
             print("{} won the battle!".format(players[0].name))
             players[0].reserve.extend(self.discards)
         else:
             print("{} won the battle!".format(players[1].name))
             players[1].reserve.extend(self.discards)
-        print("Player 1's new total: {}".format(
+        print("Player 1's new card count: {}".format(
             len(players[0].reserve)+len(players[0].hand)))
-        print("Player 2's new total: {}\n".format(
+        print("Player 2's new card count: {}\n".format(
             len(players[1].reserve)+len(players[1].hand)))
         self.discards = []
         return
@@ -128,20 +124,19 @@ class Deck(object):
         Compares players' played cards to determine who gets the discards. Input is players and two card tuples; output is player who gets the cards.
         Adding court cards makes this a bit more complicated...
         """
-
         a = self.CARD_RANKS[cards[0][0]]
         b = self.CARD_RANKS[cards[1][0]]
 
         if a == b:
-            print("\nWAR!\n")
+            print("\nWAR!\nEach player counts out three cards face-down, then draws one more.\n")
             self.discards = cards
             self.battle(players)
         elif a > b:
             players[0].reserve.extend(cards)
-            print("{} gets the cards.\n".format(players[0].name))
+            print("\n{} takes the cards.\n".format(players[0].name))
         else:
             players[1].reserve.extend(cards)
-            print("{} gets the cards.\n".format(players[1].name))
+            print("\n{} takes the cards.\n".format(players[1].name))
 
     def deal_cards(self, players):
         """
@@ -160,8 +155,8 @@ class Deck(object):
             players[0].name, len(players[0].hand), players[1].name, len(players[1].hand)))
 
     def make_std_deck(self):
-        values = "A K Q J 10 9 8 7 6 5 4 3 2".split(" ")
-        suits = ["Clubs", "Diamonds"]
+        values = "Ace King Queen Jack 10 9 8 7 6 5 4 3 2".split(" ")
+        suits = ["Clubs", "Diamonds", "Hearts", "Spades"]
         deck = []
         for val in values:
             for suit in suits:
@@ -185,7 +180,6 @@ class Deck(object):
         """
         Checks each player's hand and discard length to see if the game has been decided. Returns player name if True, or False if no winner.
         """
-        # print("[win_check]")
         for each in players:
             hl = len(each.hand)
             rl = len(each.reserve)

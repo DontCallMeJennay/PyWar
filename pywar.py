@@ -23,8 +23,8 @@ def Game():
     player2 = Player(name2)
     """
     
-    player1 = Classes.Player("Bob")
-    player2 = Classes.Player("Jenni")
+    player1 = Classes.Player("Player 1")
+    player2 = Classes.Player("Player 2")
 
     players = [player1, player2]
 
@@ -37,15 +37,20 @@ def Game():
 
     while not winner:        
         played = []
+        print("[Game loop]")
+        print("[Total cards on board: {}]".format(len(player1.hand) + len(player1.reserve) + len(player2.hand) + len(player2.reserve)))
+        myDeck.win_check(players)
         for each in players:
-            hl = len(each.hand)
-            rl = len(each.reserve)
-            print("{} now has {} cards in hand and {} cards in reserve.".format(each.name, hl, rl))
-            card = each.play_card()
-            played.append(card)
-            print("{} plays the {} of {}".format(each.name, card[0], card[1]))
+            total = len(each.hand) + len(each.reserve)
+            print("{} now has a total of {} cards.".format(each.name, total))
+            if total > 0:
+                card = each.play_card()
+                played.append(card)
+                print("{} plays the {} of {}!".format(each.name, card[0], card[1]))
+            else:
+                myDeck.win_check(players)
         #time.sleep(1)
-        myDeck.compare_cards(players, cardsPlayed)
+        myDeck.compare_cards(players, played)
         #time.sleep(5)
    
 Game()

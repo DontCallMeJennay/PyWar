@@ -37,12 +37,12 @@ def Game():
 
     while not winner:        
         played = []
-        print("[Game loop]")
-        print("[Total cards on board: {}]".format(len(player1.hand) + len(player1.reserve) + len(player2.hand) + len(player2.reserve)))
+        #print("[Game loop]")
+        #print("[Total cards on board: {}]".format(len(player1.hand) + len(player1.reserve) + len(player2.hand) + len(player2.reserve)))
         myDeck.win_check(players)
         for each in players:
             total = len(each.hand) + len(each.reserve)
-            print("{} now has a total of {} cards.".format(each.name, total))
+            #print("{} now has a total of {} cards.".format(each.name, total))
             if total > 0:
                 card = each.play_card()
                 played.append(card)

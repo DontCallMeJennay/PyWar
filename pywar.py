@@ -9,6 +9,7 @@
 """
 
 import classes as Classes
+import time
 
 def Game():
     """
@@ -28,18 +29,23 @@ def Game():
     players = [player1, player2]
 
     myDeck = Classes.Deck()
-    myDeck.shuffle()
+    myDeck.shuffle(myDeck.deck)
     
-    myDeck.dealCards(players)
+    myDeck.deal_cards(players)
 
     winner = False
 
     while not winner:        
-        cardsPlayed = []
+        played = []
         for each in players:
-            card = each.playCard()
-            cardsPlayed.append(card)
-            print(each.name, " has played ", card)
-        myDeck.compareCards(players, cardsPlayed)
+            hl = len(each.hand)
+            rl = len(each.reserve)
+            print("{} now has {} cards in hand and {} cards in reserve.".format(each.name, hl, rl))
+            card = each.play_card()
+            played.append(card)
+            print("{} plays the {} of {}".format(each.name, card[0], card[1]))
+        #time.sleep(1)
+        myDeck.compare_cards(players, cardsPlayed)
+        #time.sleep(5)
    
 Game()

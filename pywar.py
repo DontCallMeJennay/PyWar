@@ -8,7 +8,9 @@
 * When one player has zero cards in hand AND zero cards in reserve, the other player wins
 """
 
-import classes as Classes
+import deck_class
+import player_class
+import random
 import time
 
 def Game():
@@ -23,12 +25,12 @@ def Game():
     player2 = Player(name2)
     """
     
-    player1 = Classes.Player("Player 1")
-    player2 = Classes.Player("Player 2")
+    player1 = player_class.Player("Player 1")
+    player2 = player_class.Player("Player 2")
 
     players = [player1, player2]
 
-    myDeck = Classes.Deck()
+    myDeck = deck_class.Deck()
     myDeck.shuffle(myDeck.deck)
     
     myDeck.deal_cards(players)
